@@ -4,6 +4,8 @@ Sourcegraph GoDoc Go Report Card Build Status Codecov Join the chat at https://g
 Supported Go versions
 As of version 4.0.0, Echo is available as a Go module. Therefore a Go version capable of understanding /vN suffixed imports is required:
 
+https://github.com/SandiIceMessanger/HasanPos-Backend-GOLANG/blob/main/erd-bahasa-ver.jpg
+
 1.9.7+
 1.10.3+
 1.14+
