@@ -42,4 +42,5 @@ func InitMigrate() {
 	DB.AutoMigrate(&models.Product{})
 	DB.AutoMigrate(&models.ProductCategory{})
 	DB.AutoMigrate(&models.Customer{})
+	DB.AutoMigrate(&models.Supplier{})
 }
