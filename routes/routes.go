@@ -47,5 +47,11 @@ func New() *echo.Echo {
 	r.PUT("/suppliers/:id", controllers.UpdateSupplierController)
 	r.POST("/suppliers", controllers.CreateSupplierController)
 
+	r.GET("/purchase_orders", controllers.GetPurchaseOrdersController)
+	r.GET("/purchase_orders/:id", controllers.GetPurchaseOrderController)
+	r.DELETE("/purchase_orders/:id", controllers.DeletePurchaseOrderController)
+	r.PUT("/purchase_orders/:id", controllers.UpdatePurchaseOrderController)
+	r.POST("/purchase_orders", controllers.CreatePurchaseOrderController)
+
 	return e
 }
