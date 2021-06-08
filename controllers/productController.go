@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 	"strconv"
-	
+
 	"project/lib/database"
 	"project/models"
 
@@ -25,7 +25,7 @@ func GetProductsController(c echo.Context) error {
 func GetProductController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{} {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"message": "failed to get a product, product with ID " + c.Param("id") + " is not found",
 		})
 	}
@@ -36,7 +36,44 @@ func GetProductController(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":          "success",
+		"status":  "success",
+		"product": product,
+	})
+}
+
+func DeleteProductController(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, map[string]interface{}{
+			"message": "failed to get a product category, user with ID " + c.Param("id") + " is not found",
+		})
+	}
+
+	if _, deleteErr := database.DeleteProduct(id); deleteErr != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, deleteErr.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"product": "success",
+	})
+}
+
+func UpdateProductController(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, map[string]interface{}{
+			"message": "failed to get a product category, product category with ID " + c.Param("id") + " is not found",
+		})
+	}
+
+	var UpdateProduct models.Product
+	c.Bind(&UpdateProduct)
+	product, updateErr := database.UpdateProduct(id, &UpdateProduct)
+	if updateErr != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, updateErr.Error())
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success create new product",
 		"product": product,
 	})
 }
